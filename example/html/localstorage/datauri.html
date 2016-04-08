@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>图片缓存</title>
+</head>
+<body>
+<script type="text/javascript">
+var src = '../../images/meinv.jpg';
+function set(key) {
+	var img = document.createElement('img');
+	// 当图片加载完成的时候触发回调函数
+	img.addEventListener('load',function() {
+		var imgCanvas = document.createElement('canvas'),
+		imgContext = imgCanvas.getContext('2d');
+		// 确保canvas元素的大小和图片尺寸一致
+		imgCanvas.width = this.width;
+		imgCanvas.height = this.height;
+
+		// 渲染图片到canvas中
+		imgContext.drawImage(this,0,0,this.width,this.height);
+
+		// 用data url的形式取出
+		var imgAsDataURL = imgCanvas.toDataURL("image/jpg");
+
+		// 保存到本地存储中
+		try {
+			localStorage.setItem(key,imgAsDataURL);
+		} catch(e) {
+			console.log('storage failes: '+e);
+		}
+	},false);
+	img.src = src;
+}
+function get(key) { // 从本地缓存获取图片并且渲染
+	var srcStr = localStorage.getItem(key);
+	var imgObj = document.createElement('img');
+	imgObj.src = srcStr;
+	document.body.appendChild(imgObj);
+}
+</script>
+</body>
+</html>

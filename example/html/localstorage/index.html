@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+	<script src="../../../src/js/localstorage.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var wsCache = new WebStorageCache();
+
+		// 缓存字符串'wqteam' 到 'username' 中, 超时时间100秒
+		wsCache.set('username', 'wqteam', {exp : 100});
+		wsCache.get('username');
+	</script>
+	</body>
+</html>

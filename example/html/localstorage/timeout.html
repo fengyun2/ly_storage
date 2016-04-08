@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>localStorage timeout</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// key -> 键名
+		// v -> 键值
+		function set(key,v) {
+			var curTime = new Date().getTime();
+			localStorage.setItem(key,JSON.stringify({data: v,time: curTime}));
+		}
+		// key -> 键名
+		// exp -> 过期时间
+		function get(key,exp) {
+			var data = localStorage.getItem(key);
+			var dataObj = JSON.parse(data);
+			if(new Date().getTime() - dataObj.time > exp) {
+				console.log('expires');
+			}else {
+				console.log('data=' + dataObj.data);
+			}
+		}
+	</script>
+</body>
+</html>
